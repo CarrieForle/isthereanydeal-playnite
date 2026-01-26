@@ -216,14 +216,25 @@ namespace IsthereanydealCollectionSync
                 string id = $"playnite/{game.Id}";
                 // Try to include the PluginId and GameId (e.g. steam appid) to create unique IDs per duplicate copy
                 // We could use the Source plugin GUID, but this is actualy a user-visible string in ITAD so better to use the more friendly Source.Name
-                if (!string.IsNullOrEmpty(game.Source?.Name) && !string.IsNullOrEmpty(game.GameId))
+
+                var shop = ItadShopExtension.FromGameSource(game.Source); // SyncGames() ensures this will be valid
+
+                if (!string.IsNullOrEmpty(game.GameId))
                 {
-                    id = $"{game.Source?.Name}/{game.GameId}";
+                    if (shop == ItadShop.Steam)
+                    {
+                        // ITAD uses Steam full ID.
+                        id = $"app/{game.GameId}";
+                    }
+                    else if (!string.IsNullOrEmpty(game.Source?.Name))
+                    {
+                        id = game.GameId;
+                    }
                 }
 
                 gamesRequest.Add(new ProfilesSyncCollectionGame
                 {
-                    shop = ItadShopExtension.FromGameSource(game.Source), // SyncGames() ensures this will be valid
+                    shop = shop,
                     id = id,
                     title = game.Name,
                     playtime = playtime,
