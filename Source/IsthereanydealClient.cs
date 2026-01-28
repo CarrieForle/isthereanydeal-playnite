@@ -251,6 +251,7 @@ namespace IsthereanydealCollectionSync
                 var oauthToken = await getToken();
                 var refreshedOauthToken = await RefreshTokens(oauthToken);
                 var profileToken = await LinkProfile(refreshedOauthToken);
+                string content = null;
 
                 try
                 {
@@ -259,14 +260,14 @@ namespace IsthereanydealCollectionSync
                     var bodyContent = Serialization.ToJson(gamesRequest);
                     var body = new StringContent(bodyContent, Encoding.UTF8, "application/json");
                     HttpResponseMessage response = await client.PutAsync("https://api.isthereanydeal.com/profiles/sync/collection/v1", body);
+                    content = await response.Content.ReadAsStringAsync();
                     response.EnsureSuccessStatusCode();
-                    var responseContent = await response.Content.ReadAsStringAsync();
-                    var profilesSyncCollectionResponse = Serialization.FromJson<ProfilesSyncCollectionResponse>(responseContent);
+                    var profilesSyncCollectionResponse = Serialization.FromJson<ProfilesSyncCollectionResponse>(content);
                     return profilesSyncCollectionResponse;
                 }
                 catch (Exception ex)
                 {
-                    throw new ITADException("Failed to sync collection", ex);
+                    throw new ITADException($"Failed to sync collection: {content}", ex);
                 }
             }
         }

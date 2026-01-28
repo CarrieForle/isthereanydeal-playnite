@@ -117,6 +117,25 @@ namespace IsthereanydealCollectionSync
             PlayniteApi.Notifications.Remove(notificationId.ToString());
         }
 
+        public override IEnumerable<GameMenuItem> GetGameMenuItems(GetGameMenuItemsArgs args)
+        {
+            string description = "Sync these games";
+
+            if (args.Games.Count == 1)
+            {
+                description = $"Sync {args.Games.First().Name}";
+            }
+
+            yield return new GameMenuItem
+            {
+                Description = description,
+                Action = (itemArgs) =>
+                {
+                    SyncGames(itemArgs.Games, true);
+                }
+            };
+        }
+
         private void ShowNotification(string message, NotificationType type, bool openSettingsOnClick)
         {
             // Clear existing notification first (no use case for multiple notifications currently)
