@@ -25,7 +25,7 @@ namespace IsthereanydealCollectionSyncModified
         private static ILogger logger = LogManager.GetLogger();
         private const string FILENAME = "IsThereAnyDealCollectionSyncDatabase.json";
         private readonly string filePath;
-        private Database Database { get; set; }
+        private Database database;
         private Category category;
         public Category Category {
             // Maybe generalize to one method if 
@@ -39,7 +39,7 @@ namespace IsthereanydealCollectionSyncModified
                         Name = Database.CategoryName
                     };
 
-                    Database.CategoryId = category.Id;
+                    database.CategoryId = category.Id;
                     _ = Save();
                 }
 
@@ -49,10 +49,10 @@ namespace IsthereanydealCollectionSyncModified
 
         public ItadApiCredential Credential
         {
-            get => Database.Credential;
+            get => database.Credential;
             set
             {
-                Database.Credential = value;
+                database.Credential = value;
                 _ = Save();
             }
         }
@@ -72,7 +72,7 @@ namespace IsthereanydealCollectionSyncModified
 
             return new DatabaseProxy(filePath)
             {
-                Database = database
+                database = database
             };
         }
 
@@ -84,7 +84,7 @@ namespace IsthereanydealCollectionSyncModified
         /// <param name="playniteDb"></param>
         public void Sync(IGameDatabase playniteDb)
         {
-            category = playniteDb.Categories.Get(Database.CategoryId);
+            category = playniteDb.Categories.Get(database.CategoryId);
         }
 
         public async Task Save()
@@ -95,7 +95,7 @@ namespace IsthereanydealCollectionSyncModified
             {
                 using (var writer = new StreamWriter(filePath, false, Encoding.UTF8))
                 {
-                    await writer.WriteAsync(Serialization.ToJson(Database));
+                    await writer.WriteAsync(Serialization.ToJson(database));
                 }
             }
             catch (Exception ex)
