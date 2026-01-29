@@ -65,11 +65,24 @@ namespace IsthereanydealCollectionSyncModified
         {
             logger.Info("Start login");
             var oauth = new OauthCodeExchange();
+            var brokenSteamCallback = $"https://isthereanydeal.com/oauth/authorize/?client_id={ItadOauthConstants.CLIENT_ID}";
+
             using (var webView = plugin.PlayniteApi.WebViews.CreateView(600, 720))
             {
                 webView.LoadingChanged += async (s, e) =>
                 {
                     string address = webView.GetCurrentAddress();
+
+                    if (address == brokenSteamCallback)
+                    {
+                        // Workaround this ITAD error, when returning from a redirect back to ITAD from Steam login:
+                        // > App Authorization Error
+                        // > The authorization grant type is not supported by the authorization server. (Check that all required parameters have been provided)
+                        // It seems ITAD is sending an incomplete redirect URL to Steam(?) causing Steam to redirect back to ITAD with missing parameters.
+                        // As a workaround, we just retry the login, which will work now that ITAD cookies are set after Steam login.
+                        webView.Navigate(oauth.LoginUrl);
+                    }
+
                     logger.Debug($"WebView: \"{address}\"");
 
                     try
