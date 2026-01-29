@@ -213,7 +213,7 @@ namespace IsthereanydealCollectionSyncModified
                 }
             }
 
-            logger.Info($"Imported({importResult.ImportedGames.Count})\nSkipped({importResult.SkippedGames.Count})\nFailed({importResult.FailedGames})");
+            logger.Info($"Imported({importResult.ImportedGames.Count})\nSkipped({importResult.SkippedGames.Count})\nFailed({importResult.FailedGames.Count})");
 
             if (toBeAddedCopies.HasItems())
             {
