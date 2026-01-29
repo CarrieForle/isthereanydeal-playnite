@@ -68,6 +68,8 @@ namespace IsthereanydealCollectionSyncModified
             if (!Serialization.TryFromJsonFile(filePath, out Database database))
             {
                 logger.Warn("Failed to deserialize database. Creating new one.");
+
+                database = new Database();
             }
 
             return new DatabaseProxy(filePath)
