@@ -1,6 +1,6 @@
 using System;
 
-namespace IsthereanydealCollectionSync
+namespace IsthereanydealCollectionSyncModified
 {
     public class ITADException : Exception
     {

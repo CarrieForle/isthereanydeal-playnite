@@ -7,7 +7,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IsthereanydealCollectionSync
+namespace IsthereanydealCollectionSyncModified
 {
 	internal class Database
 	{

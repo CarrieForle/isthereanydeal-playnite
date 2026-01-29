@@ -3,7 +3,7 @@ using Playnite.SDK.Models;
 using System;
 using System.Collections.Generic;
 
-namespace IsthereanydealCollectionSync
+namespace IsthereanydealCollectionSyncModified
 {
     internal static class Common
     {

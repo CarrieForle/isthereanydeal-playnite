@@ -2,7 +2,7 @@ using Playnite.SDK;
 using Playnite.SDK.Data;
 using System.Collections.Generic;
 
-namespace IsthereanydealCollectionSync
+namespace IsthereanydealCollectionSyncModified
 {
     public class Settings : ObservableObject
     {

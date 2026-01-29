@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace IsthereanydealCollectionSync
+namespace IsthereanydealCollectionSyncModified
 {
     using static ItadOauthConstants;
     using static ItadApi;

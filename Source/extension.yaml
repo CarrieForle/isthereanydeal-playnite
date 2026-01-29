@@ -1,10 +1,12 @@
-﻿Id: bburky-IsThereAnyDeal
-Name: IsThereAnyDeal Collection Sync
-Author: Blake Burkhart
-Version: 2.3
-Module: IsthereanydealCollectionSync.dll
+Id: bburky-IsThereAnyDeal-modified
+Name: IsThereAnyDeal Collection Sync Modified
+Author: "Blake Burkhart\nModified by CarrieForle"
+Version: 3.00
+Module: IsthereanydealCollectionSyncModified.dll
 Type: GenericPlugin
 Icon: Assets\icon.png
 Links:
     - Name: Source
-      Url: https://github.com/bburky/isthereanydeal-playnite/
+      Url: https://github.com/CarrieForle/isthereanydeal-playnite
+    - Name: Original
+      Url: https://github.com/bburky/isthereanydeal-playnite

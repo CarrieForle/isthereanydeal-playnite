@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace IsthereanydealCollectionSync
+namespace IsthereanydealCollectionSyncModified
 {
     using static Common;
 
@@ -21,7 +21,7 @@ namespace IsthereanydealCollectionSync
         private dynamic duplicateHider;
         private readonly LibraryTracker libraryTracker;
         internal readonly IsthereanydealClient client;
-        public override Guid Id { get; } = Guid.Parse("1f1c327f-8896-47de-950c-c92dc9fab556");
+        public override Guid Id { get; } = Guid.Parse("8ee803e8-2f7c-4349-b2b9-e74ac3d60b0c");
 
         public IsthereanydealCollectionSync(IPlayniteAPI api) : base(api)
         {
