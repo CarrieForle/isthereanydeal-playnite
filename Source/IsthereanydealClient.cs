@@ -28,8 +28,8 @@ namespace IsthereanydealCollectionSyncModified
             this.plugin = plugin;
             this.logger = logger;
             Settings = settings;
-            Api = new ItadApi(this);
             Database = DatabaseProxy.LoadOrInit(plugin);
+            Api = new ItadApi(this);
 
             _ = InitUsername();
             logger.Debug("Client initialized");
