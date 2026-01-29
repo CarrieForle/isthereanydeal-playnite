@@ -59,8 +59,6 @@ namespace IsthereanydealCollectionSync
         {
             logger.Info($"Start syncing games (background: {background})");
 
-            // TODO show progress UI in Playnite. Can always use the background progress status type I think, this isn't blocking the user in Playnite.
-
             if (!viewModel.Settings.SyncHidden)
             {
                 games = PlayniteApi.Database.Games.Where((game) => !game.Hidden).ToArray();
@@ -83,7 +81,38 @@ namespace IsthereanydealCollectionSync
 
             try
             {
-                var result = await client.ProfilesSyncCollection(games);
+                if (background)
+                {
+                    await client.ProfilesSyncCollection(games);
+                    return;
+                }
+
+                // TODO: Localization
+                ProfilesSyncCollectionResponse res = null;
+                var progressRes = PlayniteApi.Dialogs.ActivateGlobalProgress(async (args) =>
+                {
+                    res = await client.ProfilesSyncCollection(games);
+                }, new GlobalProgressOptions($"Syncing {games.Count} games to IsThereAnyDeal collection..."));
+
+                // Ignore Cancelled state since this is not cancellable.
+                if (progressRes.Result ?? false)
+                {
+                    var line = $@"{res.total} games are synced.
+{res.added} new games are collected.
+{res.removed} games are removed from the collection.";
+
+                    PlayniteApi.Dialogs.ShowMessage(line, "IsThereAnyDeal Collection Sync Result");
+                        
+                }
+                else if (!(progressRes.Error is null))
+                {
+                    throw progressRes.Error;
+                        
+                }
+                else
+                {
+                    throw new Exception("Unknown");
+                }
             }
             catch (ITADException ex)
             {
@@ -107,9 +136,6 @@ namespace IsthereanydealCollectionSync
                 //TODO: decide if this should unconditionally show dialog? Other Exception types are unexpected, could trigger dialogs from background syncs though
                 PlayniteApi.Dialogs.ShowErrorMessage($"Unexpected error during ITAD collection sync:\n{ex.Message}", ResourceProvider.GetString("LOCIsThereAnyDealCollectionSync"));
             }
-
-            // TODO: if foreground, show success dialog with info from server.
-            // probably no notification at all for background success?
         }
         internal void ClearNotifications()
         {
