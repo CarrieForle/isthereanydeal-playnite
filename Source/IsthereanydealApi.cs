@@ -264,7 +264,6 @@ namespace IsthereanydealCollectionSyncModified
                 {
                     { "grant_type", "refresh_token" },
                     { "client_id", CLIENT_ID },
-                    { "client_secret", CLIENT_SECRET },
                     { "refresh_token", Credential.refresh_token }, // Credential shouldn't be null
                 };
 
