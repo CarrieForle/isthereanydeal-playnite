@@ -49,8 +49,8 @@ namespace IsthereanydealCollectionSyncModified
         {
             yield return new MainMenuItem
             {
-                MenuSection = "@" + ResourceProvider.GetString("LOCIsThereAnyDealCollectionSync"),
-                Description = ResourceProvider.GetString("LOCIsThereAnyDealCollectionSyncMainMenuImport"),
+                MenuSection = "@" + ResourceProvider.GetString("LOCIsThereAnyDealCollectionSyncModified"),
+                Description = ResourceProvider.GetString("LOCIsThereAnyDealCollectionSyncModifiedMainMenuImport"),
                 Action = (itemArgs) =>
                 {
                     ICollection<Game> games = PlayniteApi.Database.Games;
@@ -70,7 +70,7 @@ namespace IsthereanydealCollectionSyncModified
         {
             yield return new GameMenuItem
             {
-                Description = ResourceProvider.GetString("LOCIsThereAnyDealCollectionSyncGameMenuImport"),
+                Description = ResourceProvider.GetString("LOCIsThereAnyDealCollectionSyncModifiedGameMenuImport"),
                 Action = (itemArgs) =>
                 {
                     ICollection<Game> games = itemArgs.Games;
@@ -193,7 +193,7 @@ namespace IsthereanydealCollectionSyncModified
                 if (!client.IsUserLoggedIn())
                 {
                     logger.Info("User not logged in. Stop import.");
-                    if (YesNoMessageBox(ResourceProvider.GetString("LOCIsThereAnyDealCollectionSyncErrorMessageNotLoggedIn"), ResourceProvider.GetString("LOCIsThereAnyDealCollectionSyncErrorCaption")))
+                    if (YesNoMessageBox(ResourceProvider.GetString("LOCIsThereAnyDealCollectionSyncModifiedErrorMessageNotLoggedIn"), ResourceProvider.GetString("LOCIsThereAnyDealCollectionSyncModifiedErrorCaption")))
                     {
                         PlayniteApi.MainView.OpenPluginSettings(Id);
                     }
@@ -207,12 +207,12 @@ namespace IsthereanydealCollectionSyncModified
                 {
                     var game = games.First();
 
-                    if (client.Settings.SkipNoSource && game.Source is null && !YesNoMessageBox(Localized("LOCIsThereAnyDealCollectionSyncImportSkipNoSource", game.Name), ResourceProvider.GetString("LOCIsThereAnyDealCollectionSync")))
+                    if (client.Settings.SkipNoSource && game.Source is null && !YesNoMessageBox(Localized("LOCIsThereAnyDealCollectionSyncModifiedImportSkipNoSource", game.Name), ResourceProvider.GetString("LOCIsThereAnyDealCollectionSyncModified")))
                     {
                         return;
                     }
 
-                    dialogText = Localized("LOCIsThereAnyDealCollectionSyncImportMessageSingle", games.First().Name);
+                    dialogText = Localized("LOCIsThereAnyDealCollectionSyncModifiedImportMessageSingle", games.First().Name);
                 }
                 else
                 {
@@ -220,7 +220,7 @@ namespace IsthereanydealCollectionSyncModified
                     {
                         games = games.Where(g => !(g.Source is null)).ToArray();
                     }
-                    dialogText = Localized("LOCIsThereAnyDealCollectionSyncImportMessageMultiple", games.Count);
+                    dialogText = Localized("LOCIsThereAnyDealCollectionSyncModifiedImportMessageMultiple", games.Count);
                 }
 
                 PlayniteApi.Dialogs.ActivateGlobalProgress(new Func<GlobalProgressActionArgs, Task>(async (progressArgs) =>
@@ -228,7 +228,7 @@ namespace IsthereanydealCollectionSyncModified
                     var res = await ActualImport(games);
                     if (res.kind == ImportResultHelper.Kind.Ok)
                     {
-                        PlayniteApi.Dialogs.ShowMessage(res.text, ResourceProvider.GetString("LOCIsThereAnyDealCollectionSync"));
+                        PlayniteApi.Dialogs.ShowMessage(res.text, ResourceProvider.GetString("LOCIsThereAnyDealCollectionSyncModified"));
 
                         if (res.result.FailedGames.HasItems() && client.Settings.FilterFaileds)
                         {
@@ -248,7 +248,7 @@ namespace IsthereanydealCollectionSyncModified
                     }
                     else
                     {
-                        PlayniteApi.Dialogs.ShowErrorMessage(res.text, ResourceProvider.GetString("LOCIsThereAnyDealCollectionSyncErrorCaption"));
+                        PlayniteApi.Dialogs.ShowErrorMessage(res.text, ResourceProvider.GetString("LOCIsThereAnyDealCollectionSyncModifiedErrorCaption"));
                     }
                 }), new GlobalProgressOptions(dialogText));
             }
@@ -272,7 +272,7 @@ namespace IsthereanydealCollectionSyncModified
                 {
                     result = importResult,
                     kind = ImportResultHelper.Kind.Ok,
-                    text = Localized("LOCIsThereAnyDealCollectionSyncImportMixed", games.Count, importResult.ImportedGames.Count,
+                    text = Localized("LOCIsThereAnyDealCollectionSyncModifiedImportMixed", games.Count, importResult.ImportedGames.Count,
                         importResult.SkippedGames.Count,
                         importResult.FailedGames.Count)
                 };
@@ -283,30 +283,30 @@ namespace IsthereanydealCollectionSyncModified
 
                     if (importResult.FailedGames.HasItems())
                     {
-                        importResultHelper.text = Localized("LOCIsThereAnyDealCollectionSyncImportFailureSingle", game.Name);
+                        importResultHelper.text = Localized("LOCIsThereAnyDealCollectionSyncModifiedImportFailureSingle", game.Name);
                     }
                     else if (importResult.SkippedGames.HasItems())
                     {
-                        importResultHelper.text = Localized("LOCIsThereAnyDealCollectionSyncImportSkippedSingle", game.Name);
+                        importResultHelper.text = Localized("LOCIsThereAnyDealCollectionSyncModifiedImportSkippedSingle", game.Name);
                     }
                     else
                     {
-                        importResultHelper.text = Localized("LOCIsThereAnyDealCollectionSyncImportSucceedSingle", game.Name);
+                        importResultHelper.text = Localized("LOCIsThereAnyDealCollectionSyncModifiedImportSucceedSingle", game.Name);
                     }
                 }
                 else
                 {
                     if (importResult.FailedGames.Count == games.Count)
                     {
-                        importResultHelper.text = Localized("LOCIsThereAnyDealCollectionSyncImportFailureMultiple", games.Count);
+                        importResultHelper.text = Localized("LOCIsThereAnyDealCollectionSyncModifiedImportFailureMultiple", games.Count);
                     }
                     else if (importResult.SkippedGames.Count == games.Count)
                     {
-                        importResultHelper.text = Localized("LOCIsThereAnyDealCollectionSyncImportSkippedMultiple", games.Count);
+                        importResultHelper.text = Localized("LOCIsThereAnyDealCollectionSyncModifiedImportSkippedMultiple", games.Count);
                     }
                     else if (importResult.ImportedGames.Count == games.Count)
                     {
-                        importResultHelper.text = Localized("LOCIsThereAnyDealCollectionSyncImportSucceedMultiple", games.Count);
+                        importResultHelper.text = Localized("LOCIsThereAnyDealCollectionSyncModifiedImportSucceedMultiple", games.Count);
                     }
                 }
 
@@ -318,7 +318,7 @@ namespace IsthereanydealCollectionSyncModified
 
                 return new ImportResultHelper
                 {
-                    text = Localized("LOCIsThereAnyDealCollectionSyncNetworkError", ex.Message),
+                    text = Localized("LOCIsThereAnyDealCollectionSyncModifiedNetworkError", ex.Message),
                     kind = ImportResultHelper.Kind.Error,
                 };
             }
@@ -328,7 +328,7 @@ namespace IsthereanydealCollectionSyncModified
                 
                 return new ImportResultHelper
                 {
-                    text = Localized("LOCIsThereAnyDealCollectionSyncImportError", ex.Message),
+                    text = Localized("LOCIsThereAnyDealCollectionSyncModifiedImportError", ex.Message),
                     kind = ImportResultHelper.Kind.Error,
                 };
             }
@@ -344,7 +344,7 @@ namespace IsthereanydealCollectionSyncModified
 
         private string SendNotification(string msg)
         {
-            string text = $"{ResourceProvider.GetString("LOCIsThereAnyDealCollectionSync")}\n\n{msg}";
+            string text = $"{ResourceProvider.GetString("LOCIsThereAnyDealCollectionSyncModified")}\n\n{msg}";
             string id = Guid.NewGuid().ToString();
 
             PlayniteApi.Notifications.Add(id, text, NotificationType.Info);
@@ -354,7 +354,7 @@ namespace IsthereanydealCollectionSyncModified
 
         private string SendErrorNotification(string msg)
         {
-            string text = $"{ResourceProvider.GetString("LOCIsThereAnyDealCollectionSync")}\n\n{msg}";
+            string text = $"{ResourceProvider.GetString("LOCIsThereAnyDealCollectionSyncModified")}\n\n{msg}";
             string id = Guid.NewGuid().ToString();
 
             PlayniteApi.Notifications.Add(id, text, NotificationType.Error);

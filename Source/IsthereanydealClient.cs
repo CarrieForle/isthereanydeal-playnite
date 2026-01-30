@@ -103,13 +103,13 @@ namespace IsthereanydealCollectionSyncModified
                     catch (HttpRequestException ex)
                     {
                         webView.Close();
-                        plugin.PlayniteApi.Dialogs.ShowErrorMessage(Localized("LOCIsThereAnyDealCollectionSyncInternerError", ex.Message), ResourceProvider.GetString("LOCIsThereAnyDealCollectionSyncErrorCaption"));
+                        plugin.PlayniteApi.Dialogs.ShowErrorMessage(Localized("LOCIsThereAnyDealCollectionSyncModifiedInternerError", ex.Message), ResourceProvider.GetString("LOCIsThereAnyDealCollectionSyncModifiedErrorCaption"));
                         logger.Error(ex, $"Error in WebView during authentication");
                     }
                     catch (Exception ex)
                     {
                         webView.Close();
-                        plugin.PlayniteApi.Dialogs.ShowErrorMessage(Localized("LOCIsThereAnyDealCollectionSyncAuthenticationError", ex.Message), ResourceProvider.GetString("LOCIsThereAnyDealCollectionSyncErrorCaption"));
+                        plugin.PlayniteApi.Dialogs.ShowErrorMessage(Localized("LOCIsThereAnyDealCollectionSyncModifiedAuthenticationError", ex.Message), ResourceProvider.GetString("LOCIsThereAnyDealCollectionSyncModifiedErrorCaption"));
                         logger.Error(ex, $"Error in WebView during authentication");
                     }
                 };

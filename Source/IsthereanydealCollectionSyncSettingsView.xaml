@@ -49,25 +49,25 @@
                     </Style>
                 </TextBlock.Style>
             </TextBlock>
-            <Button Content="{DynamicResource LOCIsThereAnyDealCollectionSyncRefreshLoginStatus}" HorizontalAlignment="Left" Command="{Binding RefreshCommand}" Margin="5,5,5,5"/>
+            <Button Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedRefreshLoginStatus}" HorizontalAlignment="Left" Command="{Binding RefreshCommand}" Margin="5,5,5,5"/>
         </StackPanel>
-        <TextBlock Text="{DynamicResource LOCIsThereAnyDealCollectionSyncCheckBoxImportModeCaption}"/>
-        <RadioButton Content="{DynamicResource LOCIsThereAnyDealCollectionSyncCheckBoxImportModeSkip}" IsChecked="{Binding Settings.ImportMode, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:ImportMode.Skip}}" />
-        <RadioButton Content="{DynamicResource LOCIsThereAnyDealCollectionSyncCheckBoxImportModeReplace}" IsChecked="{Binding Settings.ImportMode, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:ImportMode.Replace}}" />
+        <TextBlock Text="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxImportModeCaption}"/>
+        <RadioButton Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxImportModeSkip}" IsChecked="{Binding Settings.ImportMode, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:ImportMode.Skip}}" />
+        <RadioButton Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxImportModeReplace}" IsChecked="{Binding Settings.ImportMode, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:ImportMode.Replace}}" />
         <StackPanel Orientation="Horizontal">
-            <Label Target="{Binding ElementName=Tags}" Content="{DynamicResource LOCIsThereAnyDealCollectionSyncLabelTags}" />
-            <TextBox Name="Tags" Text="{Binding Settings.Tags, Converter={StaticResource StringToStringArray}}" MinWidth="100" ToolTip="{DynamicResource LOCIsThereAnyDealCollectionSyncTagsTooltip}" />
+            <Label Target="{Binding ElementName=Tags}" Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedLabelTags}" />
+            <TextBox Name="Tags" Text="{Binding Settings.Tags, Converter={StaticResource StringToStringArray}}" MinWidth="100" ToolTip="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedTagsTooltip}" />
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <Label Target="{Binding ElementName=Note}" Content="{DynamicResource LOCIsThereAnyDealCollectionSyncLabelNote}" />
+            <Label Target="{Binding ElementName=Note}" Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedLabelNote}" />
             <TextBox Name="Note" Text="{Binding Settings.Note}" MinWidth="100"></TextBox>
         </StackPanel>
-        <CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncCheckBoxRemoveWaitlist}" IsChecked="{Binding Settings.RemoveFromWaitlist}"/>
-        <CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncCheckBoxSkipNoSource}" IsChecked="{Binding Settings.SkipNoSource}" ToolTip="{DynamicResource LOCIsThereAnyDealCollectionSyncCheckBoxSkipNoSourceToolTip}" />
-        <CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncCheckBoxRedeemEpic}" IsChecked="{Binding Settings.RedeemEpic}" />
-        <CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncCheckBoxFilterFaileds}" IsChecked="{Binding Settings.FilterFaileds}" ToolTip="{DynamicResource LOCIsThereAnyDealCollectionSyncCheckBoxFilterFailedsToolTip}" />
-        <CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncCheckBoxRunOnLibraryUpdate}" IsChecked="{Binding Settings.AutoRunOnLibraryUpdate}" ToolTip="{DynamicResource LOCIsThereAnyDealCollectionSyncCheckBoxRunOnLibraryUpdateToolTip}" />
-        <CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncCheckBoxSyncDuplicateHider}" IsChecked="{Binding Settings.SyncDuplicateHider}" ToolTip="{DynamicResource LOCIsThereAnyDealCollectionSyncCheckBoxSyncDuplicateHiderToolTip}" />
-        <CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncCheckBoxSyncHidden}" IsChecked="{Binding Settings.SyncHidden}" />
+        <CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxRemoveWaitlist}" IsChecked="{Binding Settings.RemoveFromWaitlist}"/>
+        <CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxSkipNoSource}" IsChecked="{Binding Settings.SkipNoSource}" ToolTip="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxSkipNoSourceToolTip}" />
+        <CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxRedeemEpic}" IsChecked="{Binding Settings.RedeemEpic}" />
+        <CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxFilterFaileds}" IsChecked="{Binding Settings.FilterFaileds}" ToolTip="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxFilterFailedsToolTip}" />
+        <CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxRunOnLibraryUpdate}" IsChecked="{Binding Settings.AutoRunOnLibraryUpdate}" ToolTip="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxRunOnLibraryUpdateToolTip}" />
+        <CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxSyncDuplicateHider}" IsChecked="{Binding Settings.SyncDuplicateHider}" ToolTip="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxSyncDuplicateHiderToolTip}" />
+        <CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxSyncHidden}" IsChecked="{Binding Settings.SyncHidden}" />
     </StackPanel>
 </UserControl>
