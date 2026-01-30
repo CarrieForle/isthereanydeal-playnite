@@ -339,50 +339,38 @@ namespace IsthereanydealCollectionSyncModified
 
         private async Task<HttpResponseMessage> GetAsync(string url)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, url);
-
-            return await AuthorizeAndSend(request);
+            return await AuthorizeAndSend(HttpMethod.Get, url);
         }
 
         private async Task<HttpResponseMessage> PostJsonAsync<T>(string url, T payload)
         where T: class
         {
-            var request = new HttpRequestMessage(HttpMethod.Post, url)
-            {
-                Content = JsonContentOf(payload)
-            };
-
-            return await AuthorizeAndSend(request);
+            return await AuthorizeAndSend(HttpMethod.Post, url, JsonContentOf(payload));
         }
 
         private async Task<HttpResponseMessage> PutJsonAsync<T>(string url, T payload)
         where T : class
         {
-            var request = new HttpRequestMessage(HttpMethod.Put, url)
-            {
-                Content = JsonContentOf(payload)
-            };
-
-            return await AuthorizeAndSend(request);
+            return await AuthorizeAndSend(HttpMethod.Put, url, JsonContentOf(payload));
         }
 
         private async Task<HttpResponseMessage> PatchJsonAsync<T>(string url, T payload)
         where T: class
         {
-            var request = new HttpRequestMessage(new HttpMethod("PATCH"), url)
-            {
-                Content = JsonContentOf(payload)
-            };
-
-            return await AuthorizeAndSend(request);
+            return await AuthorizeAndSend(new HttpMethod("PATCH"), url, JsonContentOf(payload));
         }
 
-        private async Task<HttpResponseMessage> AuthorizeAndSend(HttpRequestMessage request)
+        private async Task<HttpResponseMessage> AuthorizeAndSend(HttpMethod method, string uri, HttpContent content = null)
         {
             if (Credential is null)
             {
                 throw new HttpRequestException("ITAD credential is null");
             }
+
+            var request = new HttpRequestMessage(method, uri)
+            {
+                Content = content
+            };
 
             request.Headers.Add("Authorization", $"Bearer {Credential.access_token}");
             var response = await Client.SendAsync(request);
@@ -390,7 +378,11 @@ namespace IsthereanydealCollectionSyncModified
             if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
                 await RefreshTokens();
-                request.Headers.Remove("Authorization");
+                request = new HttpRequestMessage(method, uri)
+                {
+                    Content = content
+                };
+
                 request.Headers.Add("Authorization", $"Bearer {Credential.access_token}");
                 response = await Client.SendAsync(request);
             }
