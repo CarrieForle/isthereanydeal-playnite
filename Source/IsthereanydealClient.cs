@@ -31,18 +31,24 @@ namespace IsthereanydealCollectionSyncModified
             Database = DatabaseProxy.LoadOrInit(plugin);
             Api = new ItadApi(this);
 
-            _ = InitUsername();
+            _ = TryInitUsername();
             logger.Debug("Client initialized");
         }
 
         private async Task InitUsername()
         {
+            logger.Info("Getting username");
+            Username = await Api.GetUsername();
+            // Username might still be null if the user doesn't set a username. So if GetUsername didn't throw, we assume it's authenticated.
+            isAuthenticated = true;
+            Authenticated?.Invoke(this, EventArgs.Empty);
+        }
+
+        private async Task TryInitUsername()
+        {
             try
             {
-                logger.Info("Getting username");
-                Username = await Api.GetUsername();
-                isAuthenticated = true;
-                Authenticated?.Invoke(this, EventArgs.Empty);
+                await InitUsername();
             }
             catch (Exception ex)
             {
@@ -52,7 +58,7 @@ namespace IsthereanydealCollectionSyncModified
 
         public async Task<bool> RetryLogin()
         {
-            await InitUsername();
+            await TryInitUsername();
             return IsUserLoggedIn();
         }
 
@@ -90,10 +96,7 @@ namespace IsthereanydealCollectionSyncModified
                         if (oauth.TryInitCode(address))
                         {
                             await oauth.GetTokens(Api);
-                            Username = await Api.GetUsername();
-                            // Username might still be null if the user doesn't set a username. So if GetUsername didn't throw, we assume it's authenticated.
-                            isAuthenticated = true;
-                            Authenticated?.Invoke(this, EventArgs.Empty);
+                            await InitUsername();
                             webView.Close();
                         }
                     }
