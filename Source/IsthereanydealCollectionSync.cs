@@ -177,14 +177,18 @@ namespace IsthereanydealCollectionSyncModified
                 _ = ActualImport(games).ContinueWith(task =>
                 {
                     var res = task.Result;
-                    
+
                     if (res.kind == ImportResultHelper.Kind.Error)
                     {
-                        SendErrorNotification(res.text);
+                        SendNotification(NotificationType.Info, res.text);
+                    }
+                    else if (res.result.FailedGames.HasItems())
+                    {
+                        SendNotification(NotificationType.Info, res.text, FilterFailedGames);
                     }
                     else if (res.result.ImportedGames.HasItems())
                     {
-                        SendNotification(res.text);
+                        SendNotification(NotificationType.Info, res.text);
                     }
                 }, TaskContinuationOptions.OnlyOnRanToCompletion);
             }
@@ -223,42 +227,38 @@ namespace IsthereanydealCollectionSyncModified
                     dialogText = Localized("LOCIsThereAnyDealCollectionSyncModifiedImportMessageMultiple", games.Count);
                 }
 
+                ImportResultHelper res = null;
                 PlayniteApi.Dialogs.ActivateGlobalProgress(new Func<GlobalProgressActionArgs, Task>(async (progressArgs) =>
                 {
-                    var res = await ActualImport(games);
-                    if (res.kind == ImportResultHelper.Kind.Ok)
-                    {
-                        PlayniteApi.Dialogs.ShowMessage(res.text, ResourceProvider.GetString("LOCIsThereAnyDealCollectionSyncModified"));
-
-                        if (res.result.FailedGames.HasItems() && client.Settings.FilterFaileds)
-                        {
-                            PlayniteApi.MainView.UIDispatcher.Invoke(() =>
-                            {
-                                logger.Info("Filtering failed-to-sync games");
-                                FilterPreset preset = new FilterPreset
-                                {
-                                    Settings = new FilterPresetSettings
-                                    {
-                                        Category = new IdItemFilterItemProperties(client.Database.Category.Id)
-                                    }
-                                };
-                                PlayniteApi.MainView.ApplyFilterPreset(preset);
-                            });
-                        }
-                    }
-                    else
-                    {
-                        PlayniteApi.Dialogs.ShowErrorMessage(res.text, ResourceProvider.GetString("LOCIsThereAnyDealCollectionSyncModifiedErrorCaption"));
-                    }
+                    res = await ActualImport(games);
                 }), new GlobalProgressOptions(dialogText));
+
+                if (res.kind == ImportResultHelper.Kind.Ok)
+                {
+                    PlayniteApi.Dialogs.ShowMessage(res.text, ResourceProvider.GetString("LOCIsThereAnyDealCollectionSyncModified"));
+
+                    if (res.result.FailedGames.HasItems() && client.Settings.FilterFaileds)
+                    {
+                        FilterFailedGames();
+                    }
+                }
+                else
+                {
+                    PlayniteApi.Dialogs.ShowErrorMessage(res.text, ResourceProvider.GetString("LOCIsThereAnyDealCollectionSyncModifiedErrorCaption"));
+                }
             }
         }
 
+        // We need an actual import because the outer
+        // import could not handle exceptions.
         /// <summary>
-        /// The actual import process. This never 
-        /// throws an exception. If an exception happens
-        /// during the execution, it put the error text
-        /// in the return value.
+        /// Import wrapper to handle actual import
+        /// and turn the result to text shown to the
+        /// end user. <br />
+        ///
+        /// This never throws exceptions.
+        /// If an exception happens during the execution,
+        /// it put the error text in the return value.
         /// </summary>
         /// <param name="games"></param>
         /// <returns></returns>
@@ -342,24 +342,28 @@ namespace IsthereanydealCollectionSyncModified
             return res == yes;
         }
 
-        private string SendNotification(string msg)
+        private string SendNotification(NotificationType kind, string msg, Action activated = null)
         {
             string text = $"{ResourceProvider.GetString("LOCIsThereAnyDealCollectionSyncModified")}\n\n{msg}";
             string id = Guid.NewGuid().ToString();
+            var notification = new NotificationMessage(id, text, kind, activated);
 
-            PlayniteApi.Notifications.Add(id, text, NotificationType.Info);
+            PlayniteApi.Notifications.Add(notification);
 
             return id;
         }
 
-        private string SendErrorNotification(string msg)
+        private void FilterFailedGames()
         {
-            string text = $"{ResourceProvider.GetString("LOCIsThereAnyDealCollectionSyncModified")}\n\n{msg}";
-            string id = Guid.NewGuid().ToString();
-
-            PlayniteApi.Notifications.Add(id, text, NotificationType.Error);
-
-            return id;
+            logger.Info("Filtering failed-to-sync games");
+            FilterPreset preset = new FilterPreset
+            {
+                Settings = new FilterPresetSettings
+                {
+                    Category = new IdItemFilterItemProperties(client.Database.Category.Id)
+                }
+            };
+            PlayniteApi.MainView.ApplyFilterPreset(preset);
         }
 
         private class ImportResultHelper
