@@ -198,15 +198,17 @@ namespace IsthereanydealCollectionSyncModified
     // to ITAD shop.
     public enum ItadShop
     {
+        Amazon = 3, // Not in API, but can still be used.
         Blizzard = 4,
         Ea = 52,
         Epic = 16,
         Gog = 35,
         HumbleBundle = 18,
         Indiegala = 42,
+        Itch = 44, // Not in API, but can still be used.
+        MicrosoftStore = 48,
         Steam = 61,
         Ubisoft = 62,
-        MicrosoftStore = 48,
     }
 
     public class ItadShopExtension
@@ -220,6 +222,8 @@ namespace IsthereanydealCollectionSyncModified
         {
             switch (source?.Name)
             {
+                case "Amazon":
+                    return ItadShop.Blizzard;
                 case "Battle.net":
                     return ItadShop.Blizzard;
                 case "EA app":
@@ -232,6 +236,8 @@ namespace IsthereanydealCollectionSyncModified
                     return ItadShop.HumbleBundle;
                 case "Indiegala":
                     return ItadShop.Indiegala;
+                case "itch.io":
+                    return ItadShop.Itch;
                 case "Steam":
                     return ItadShop.Steam;
                 case "Ubisoft Connect":
