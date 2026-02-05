@@ -52,7 +52,7 @@
                     </Style>
                 </TextBlock.Style>
             </TextBlock>
-            <Button Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedRefreshLoginStatus}" Command="{Binding RefreshCommand}" />
+            <Button Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedRefreshLoginStatus}" Command="{Binding RefreshCommand}" ToolTip="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedRefreshLoginStatusToolTip}"/>
         </StackPanel>
         <TextBlock Text="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxImportModeCaption}"/>
         <RadioButton Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxImportModeSkip}" IsChecked="{Binding Settings.ImportMode, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:ImportMode.Skip}}" />

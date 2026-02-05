@@ -2,8 +2,9 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
-    <sys:String x:Key="LOCIsThereAnyDealCollectionSyncModified">IsThereAnyDeal Collection Sync</sys:String>
+    <sys:String x:Key="LOCIsThereAnyDealCollectionSyncModified">IsThereAnyDeal Collection Sync Modified</sys:String>
     <sys:String x:Key="LOCIsThereAnyDealCollectionSyncModifiedRefreshLoginStatus">重新整理</sys:String>
+    <sys:String x:Key="LOCIsThereAnyDealCollectionSyncModifiedRefreshLoginStatusToolTip">重新刷新您的登入狀態而不用再重新登入一次</sys:String>
     <sys:String x:Key="LOCIsThereAnyDealCollectionSyncModifiedCheckBoxImportModeCaption">若同步的遊戲已在收藏庫：</sys:String>
     <sys:String x:Key="LOCIsThereAnyDealCollectionSyncModifiedCheckBoxImportModeSkip">跳過該遊戲</sys:String>
     <sys:String x:Key="LOCIsThereAnyDealCollectionSyncModifiedCheckBoxImportModeReplace">取代該遊戲</sys:String>
