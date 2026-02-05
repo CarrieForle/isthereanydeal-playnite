@@ -29,12 +29,15 @@
                 <Setter Property="Margin" Value="0,5,5,5" />
                 <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
+            <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Margin" Value="0,5,5,5" />
+            </Style>
             <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
                 <Setter Property="Margin" Value="0,5,5,5" />
             </Style>
         </StackPanel.Resources>
         <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
-            <Button Content="{DynamicResource LOCSteamAuthenticateLabel}" HorizontalAlignment="Left" Command="{Binding LoginCommand}" Margin="5,5,5,5"/>
+            <Button Content="{DynamicResource LOCSteamAuthenticateLabel}" Command="{Binding LoginCommand}" />
             <TextBlock>
                 <TextBlock.Style>
                     <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
@@ -49,7 +52,7 @@
                     </Style>
                 </TextBlock.Style>
             </TextBlock>
-            <Button Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedRefreshLoginStatus}" HorizontalAlignment="Left" Command="{Binding RefreshCommand}" Margin="5,5,5,5"/>
+            <Button Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedRefreshLoginStatus}" Command="{Binding RefreshCommand}" />
         </StackPanel>
         <TextBlock Text="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxImportModeCaption}"/>
         <RadioButton Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxImportModeSkip}" IsChecked="{Binding Settings.ImportMode, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:ImportMode.Skip}}" />
