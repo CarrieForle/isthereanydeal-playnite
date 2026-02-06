@@ -223,7 +223,7 @@ namespace IsthereanydealCollectionSyncModified
             switch (source?.Name)
             {
                 case "Amazon":
-                    return ItadShop.Blizzard;
+                    return ItadShop.Amazon;
                 case "Battle.net":
                     return ItadShop.Blizzard;
                 case "EA app":
