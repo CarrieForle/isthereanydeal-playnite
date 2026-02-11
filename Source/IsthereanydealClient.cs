@@ -169,12 +169,14 @@ namespace IsthereanydealCollectionSyncModified
                         .OrderByDescending(c => c.shop is null)
                         .FirstOrDefault();
 
+                    var note = Settings.SyncNote ? game.Notes : "";
+
                     if (copy is null)
                     {
                         var toBeAddedCopy = new ItadApiAddCopyInput(gameItadId, false)
                         {
                             shop = shop,
-                            note = Settings.Note,
+                            note = note,
                             tags = Settings.Tags,
                         };
 
@@ -198,7 +200,7 @@ namespace IsthereanydealCollectionSyncModified
                     var toBeUpdatedCopy = new ItadApiUpdateCopyInput(copy.id)
                     {
                         shop = shop,
-                        note = Settings.Note,
+                        note = note,
                         tags = Settings.Tags,
                     };
 

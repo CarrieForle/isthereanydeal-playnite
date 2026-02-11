@@ -7,69 +7,69 @@ namespace IsthereanydealCollectionSyncModified
     public class Settings : ObservableObject
     {
         private ImportMode importMode = ImportMode.Skip;
-        private bool removeFromWaitlist = true;
-        private string[] tags;
-        private string note;
-        private bool skipNoSource = false;
-        private bool syncDuplicateHider = true;
-        private bool redeemEpic = false;
-        private bool syncHidden = false;
-        private bool filterFaileds = true;
-        private bool autoRunOnLibraryUpdate = true;
-
         public ImportMode ImportMode 
         { 
             get => importMode;
-            set => SetValue(ref importMode, value); 
+            set => SetValue(ref importMode, value);
         }
 
+        private bool removeFromWaitlist = true;
+        public bool RemoveFromWaitlist
+        {
+            get => removeFromWaitlist;
+            set => SetValue(ref removeFromWaitlist, value);
+        }
+
+        private string[] tags;
         public string[] Tags
         {
             get => tags;
             set => SetValue(ref tags, value);
         }
 
-        public string Note {
-            get => note;
-            set => SetValue(ref note, value);
+        private bool syncNote = false;
+        public bool SyncNote
+        {
+            get => syncNote;
+            set => SetValue(ref syncNote, value);
         }
 
-        public bool RemoveFromWaitlist 
-        { 
-            get => removeFromWaitlist; 
-            set => SetValue(ref removeFromWaitlist, value); 
-        }
-
+        private bool skipNoSource = false;
         public bool SkipNoSource
         {
             get => skipNoSource;
             set => SetValue(ref skipNoSource, value);
         }
 
+        private bool syncDuplicateHider = true;
         public bool SyncDuplicateHider
         {
             get => syncDuplicateHider;
             set => SetValue(ref syncDuplicateHider, value);
         }
 
+        private bool redeemEpic = false;
         public bool RedeemEpic
         {
             get => redeemEpic;
             set => SetValue(ref redeemEpic, value);
         }
 
+        private bool syncHidden = false;
         public bool SyncHidden
         {
             get => syncHidden;
             set => SetValue(ref syncHidden, value);
         }
 
+        private bool filterFaileds = true;
         public bool FilterFaileds
         {
             get => filterFaileds;
             set => SetValue(ref filterFaileds, value);
         }
 
+        private bool autoRunOnLibraryUpdate = true;
         public bool AutoRunOnLibraryUpdate
         {
             get => autoRunOnLibraryUpdate;

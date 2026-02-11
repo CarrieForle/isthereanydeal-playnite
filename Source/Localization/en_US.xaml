@@ -12,6 +12,9 @@
     <sys:String x:Key="LOCIsThereAnyDealCollectionSyncModifiedTagsTooltip">Example: tag1,tag2,tag3</sys:String>
     <sys:String x:Key="LOCIsThereAnyDealCollectionSyncModifiedLabelNote">Note</sys:String>
     <sys:String x:Key="LOCIsThereAnyDealCollectionSyncModifiedCheckBoxRemoveWaitlist">Remove games from Waitlist after sync</sys:String>
+    <sys:String x:Key="LOCIsThereAnyDealCollectionSyncModifiedCheckBoxSyncNote">Sync notes</sys:String>
+    <sys:String x:Key="LOCIsThereAnyDealCollectionSyncModifiedCheckBoxSyncNoteToolTip" xml:space="preserve">Sync game notes. You can edit note of each game
+by pressing F3 and navigate to Advanced menu.</sys:String>
     <sys:String x:Key="LOCIsThereAnyDealCollectionSyncModifiedCheckBoxSkipNoSource">Skip manually added games</sys:String>
     <sys:String x:Key="LOCIsThereAnyDealCollectionSyncModifiedCheckBoxSkipNoSourceToolTip" xml:space="preserve">Skip games whose "Source" field empty which is the default for manually added games. 
 If you manually set a game's source, it would not be skipped by this option.</sys:String>

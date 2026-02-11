@@ -12,6 +12,8 @@
     <sys:String x:Key="LOCIsThereAnyDealCollectionSyncModifiedTagsTooltip">例如: tag1,tag2,tag3</sys:String>
     <sys:String x:Key="LOCIsThereAnyDealCollectionSyncModifiedLabelNote">筆記</sys:String>
     <sys:String x:Key="LOCIsThereAnyDealCollectionSyncModifiedCheckBoxRemoveWaitlist">同步後將遊戲從Waitlist移除</sys:String>
+    <sys:String x:Key="LOCIsThereAnyDealCollectionSyncModifiedCheckBoxSyncNote">同步備註</sys:String>
+    <sys:String x:Key="LOCIsThereAnyDealCollectionSyncModifiedCheckBoxSyncNoteToolTip">同步遊戲的備註。您可以透過按下「F3」 > 「進階」選單編輯遊戲的備註</sys:String>
     <sys:String x:Key="LOCIsThereAnyDealCollectionSyncModifiedCheckBoxSkipNoSource">跳過手動新增的遊戲</sys:String>
     <sys:String x:Key="LOCIsThereAnyDealCollectionSyncModifiedCheckBoxSkipNoSourceToolTip" xml:space="preserve">跳過沒有標記「來源」的遊戲。Playnite預設不會對手動新增的遊戲標記來源
 若您為一個遊戲手動新增了來源，它就不會因為這個選項而被跳過同步</sys:String>

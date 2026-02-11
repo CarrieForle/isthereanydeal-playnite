@@ -1,76 +1,74 @@
 <UserControl x:Class="IsthereanydealCollectionSyncModified.IsthereanydealCollectionSyncSettingsView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:IsthereanydealCollectionSyncModified"
-             xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             mc:Ignorable="d"
-             d:DesignHeight="400" d:DesignWidth="600">
-    <UserControl.Resources>
-        <local:StringToStringArray x:Key="StringToStringArray"/>
-        <local:ComparisonConverter x:Key="ComparisonConverter" />
-    </UserControl.Resources>
-    <StackPanel Margin="30,0,30,0" VerticalAlignment="Stretch">
-        <StackPanel.Resources>
-            <Style TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
-                <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="Margin" Value="0,5,5,5" />
-            </Style>
-            <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
-                <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="Margin" Value="0,5,5,5" />
-            </Style>
-            <Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type RadioButton}}">
-                <Setter Property="Margin" Value="0,5,5,5" />
-                <Setter Property="VerticalAlignment" Value="Center" />
-            </Style>
-            <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
-                <Setter Property="Margin" Value="0,5,5,5" />
-                <Setter Property="VerticalAlignment" Value="Center" />
-            </Style>
-            <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-                <Setter Property="Margin" Value="0,5,5,5" />
-            </Style>
-            <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
-                <Setter Property="Margin" Value="0,5,5,5" />
-            </Style>
-        </StackPanel.Resources>
-        <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
-            <Button Content="{DynamicResource LOCSteamAuthenticateLabel}" Command="{Binding LoginCommand}" />
-            <TextBlock>
-                <TextBlock.Style>
-                    <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsUserLoggedIn}" Value="True">
-                                <Setter Property="Text" Value="{DynamicResource LOCSteamLoggedIn}" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding IsUserLoggedIn}" Value="False">
-                                <Setter Property="Text" Value="{DynamicResource LOCSteamNotLoggedIn}" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBlock.Style>
-            </TextBlock>
-            <Button Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedRefreshLoginStatus}" Command="{Binding RefreshCommand}" ToolTip="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedRefreshLoginStatusToolTip}"/>
-        </StackPanel>
-        <TextBlock Text="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxImportModeCaption}"/>
-        <RadioButton Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxImportModeSkip}" IsChecked="{Binding Settings.ImportMode, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:ImportMode.Skip}}" />
-        <RadioButton Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxImportModeReplace}" IsChecked="{Binding Settings.ImportMode, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:ImportMode.Replace}}" />
-        <StackPanel Orientation="Horizontal">
-            <Label Target="{Binding ElementName=Tags}" Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedLabelTags}" />
-            <TextBox Name="Tags" Text="{Binding Settings.Tags, Converter={StaticResource StringToStringArray}}" MinWidth="100" ToolTip="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedTagsTooltip}" />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Label Target="{Binding ElementName=Note}" Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedLabelNote}" />
-            <TextBox Name="Note" Text="{Binding Settings.Note}" MinWidth="100"></TextBox>
-        </StackPanel>
-        <CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxRemoveWaitlist}" IsChecked="{Binding Settings.RemoveFromWaitlist}"/>
-        <CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxSkipNoSource}" IsChecked="{Binding Settings.SkipNoSource}" ToolTip="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxSkipNoSourceToolTip}" />
-        <CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxRedeemEpic}" IsChecked="{Binding Settings.RedeemEpic}" />
-        <CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxFilterFaileds}" IsChecked="{Binding Settings.FilterFaileds}" ToolTip="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxFilterFailedsToolTip}" />
-        <CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxRunOnLibraryUpdate}" IsChecked="{Binding Settings.AutoRunOnLibraryUpdate}" ToolTip="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxRunOnLibraryUpdateToolTip}" />
-        <CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxSyncDuplicateHider}" IsChecked="{Binding Settings.SyncDuplicateHider}" ToolTip="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxSyncDuplicateHiderToolTip}" />
-        <CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxSyncHidden}" IsChecked="{Binding Settings.SyncHidden}" />
-    </StackPanel>
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:local="clr-namespace:IsthereanydealCollectionSyncModified"
+			 xmlns:sys="clr-namespace:System;assembly=mscorlib"
+			 mc:Ignorable="d"
+			 d:DataContext="{d:DesignInstance Type=local:IsthereanydealCollectionSyncSettingsViewModel}"
+			 d:DesignHeight="400" d:DesignWidth="600">
+	<UserControl.Resources>
+		<local:StringToStringArray x:Key="StringToStringArray"/>
+		<local:ComparisonConverter x:Key="ComparisonConverter" />
+	</UserControl.Resources>
+	<StackPanel Margin="30,0,30,0" VerticalAlignment="Stretch">
+		<StackPanel.Resources>
+			<Style TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+				<Setter Property="VerticalAlignment" Value="Center" />
+				<Setter Property="Margin" Value="0,5,5,5" />
+			</Style>
+			<Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+				<Setter Property="VerticalAlignment" Value="Center" />
+				<Setter Property="Margin" Value="0,5,5,5" />
+			</Style>
+			<Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type RadioButton}}">
+				<Setter Property="Margin" Value="0,5,5,5" />
+				<Setter Property="VerticalAlignment" Value="Center" />
+			</Style>
+			<Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
+				<Setter Property="Margin" Value="0,5,5,5" />
+				<Setter Property="VerticalAlignment" Value="Center" />
+			</Style>
+			<Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+				<Setter Property="Margin" Value="0,5,5,5" />
+			</Style>
+			<Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+				<Setter Property="Margin" Value="0,5,5,5" />
+			</Style>
+		</StackPanel.Resources>
+		<StackPanel Orientation="Horizontal" Margin="0,10,0,10">
+			<Button Content="{DynamicResource LOCSteamAuthenticateLabel}" Command="{Binding LoginCommand}" />
+			<TextBlock>
+				<TextBlock.Style>
+					<Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+						<Style.Triggers>
+							<DataTrigger Binding="{Binding IsUserLoggedIn}" Value="True">
+								<Setter Property="Text" Value="{DynamicResource LOCSteamLoggedIn}" />
+							</DataTrigger>
+							<DataTrigger Binding="{Binding IsUserLoggedIn}" Value="False">
+								<Setter Property="Text" Value="{DynamicResource LOCSteamNotLoggedIn}" />
+							</DataTrigger>
+						</Style.Triggers>
+					</Style>
+				</TextBlock.Style>
+			</TextBlock>
+			<Button Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedRefreshLoginStatus}" Command="{Binding RefreshCommand}" ToolTip="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedRefreshLoginStatusToolTip}"/>
+		</StackPanel>
+		<TextBlock Text="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxImportModeCaption}"/>
+		<RadioButton Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxImportModeSkip}" IsChecked="{Binding Settings.ImportMode, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:ImportMode.Skip}}" />
+		<RadioButton Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxImportModeReplace}" IsChecked="{Binding Settings.ImportMode, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:ImportMode.Replace}}" />
+		<StackPanel Orientation="Horizontal">
+			<Label Target="{Binding ElementName=Tags}" Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedLabelTags}" />
+			<TextBox Name="Tags" Text="{Binding Settings.Tags, Converter={StaticResource StringToStringArray}}" MinWidth="100" ToolTip="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedTagsTooltip}" />
+		</StackPanel>
+		<CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxRemoveWaitlist}" IsChecked="{Binding Settings.RemoveFromWaitlist}"/>
+		<CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxSyncNote}" IsChecked="{Binding Settings.SyncNote}" ToolTip="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxSyncNoteToolTip}" />
+		<CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxSkipNoSource}" IsChecked="{Binding Settings.SkipNoSource}" ToolTip="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxSkipNoSourceToolTip}" />
+		<CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxRedeemEpic}" IsChecked="{Binding Settings.RedeemEpic}" />
+		<CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxFilterFaileds}" IsChecked="{Binding Settings.FilterFaileds}" ToolTip="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxFilterFailedsToolTip}" />
+		<CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxRunOnLibraryUpdate}" IsChecked="{Binding Settings.AutoRunOnLibraryUpdate}" ToolTip="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxRunOnLibraryUpdateToolTip}" />
+		<CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxSyncDuplicateHider}" IsChecked="{Binding Settings.SyncDuplicateHider}" ToolTip="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxSyncDuplicateHiderToolTip}" />
+		<CheckBox Content="{DynamicResource LOCIsThereAnyDealCollectionSyncModifiedCheckBoxSyncHidden}" IsChecked="{Binding Settings.SyncHidden}" />
+	</StackPanel>
 </UserControl>

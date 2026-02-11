@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace IsthereanydealCollectionSyncModified
 {
-	internal class Database
-	{
+    internal class Database
+    {
         public const string CategoryName = "ITAD Sync Failed";
         public Guid CategoryId { get; set; }
         public ItadApiCredential Credential { get; set; }
