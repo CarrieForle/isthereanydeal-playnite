@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace IsthereanydealCollectionSyncModified
 {
@@ -79,7 +80,13 @@ namespace IsthereanydealCollectionSyncModified
                 {
                     string address = webView.GetCurrentAddress();
 
-                    if (address == brokenSteamCallback)
+                    Uri uri = new Uri(address);
+                    var censoredQueries = string.Join("&", HttpUtility.ParseQueryString(uri.Query)
+                        .AllKeys
+                        .Select(q => $"{q}=***"));
+					logger.Debug($"WebView: \"{uri.Scheme}://{uri.Host}{uri.AbsolutePath}?{censoredQueries}{uri.Fragment}\"");
+
+					if (address == brokenSteamCallback)
                     {
                         // Workaround this ITAD error, when returning from a redirect back to ITAD from Steam login:
                         // > App Authorization Error
@@ -88,8 +95,6 @@ namespace IsthereanydealCollectionSyncModified
                         // As a workaround, we just retry the login, which will work now that ITAD cookies are set after Steam login.
                         webView.Navigate(oauth.LoginUrl);
                     }
-
-                    logger.Debug($"WebView: \"{address}\"");
 
                     try
                     {
