@@ -268,7 +268,15 @@ namespace IsthereanydealCollectionSyncModified
                 copiesTasks.Add(Api.UpdateCopies(toBeUpdatedCopies));
             }
 
-            var resultTask = Task.WhenAll(copiesTasks);
+			// TODO: It's possible some tasks have completed
+            // before one of them throws. Currently the caller
+            // has no info which task fails or incomplete in
+            // that case, and the user likely doesn' know what
+            // to do after this.
+            //
+            // Either a better error handling or helpful
+            // error message will improve this situation.
+			var resultTask = Task.WhenAll(copiesTasks);
 
             if (!Settings.RemoveFromWaitlist && waitlist.HasItems())
             {
