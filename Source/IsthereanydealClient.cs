@@ -148,7 +148,15 @@ namespace IsthereanydealCollectionSyncModified
             ICollection<ItadApiCopy> existingCopies = await getCopiesTask;
             var importResult = new ImportResult();
             var copiesTasks = new List<Task>();
-            var toBeAddedCopies = new List<ItadApiAddCopyInput>();
+
+            // ITAD return 500 if two copies with the same name
+            // with different store are added in the same request.
+            // 
+            // The current workaround is separating those copies
+            // to different requests. A nested list is used where
+            // each inner list represent a request input
+            // https://github.com/CarrieForle/isthereanydeal-playnite/issues/1
+            var toBeAddedCopies = new List<List<ItadApiAddCopyInput>>();
             var toBeUpdatedCopies = new List<ItadApiUpdateCopyInput>();
             var waitlist = getWaitlistTask is null ? null : await getWaitlistTask;
 
@@ -190,7 +198,26 @@ namespace IsthereanydealCollectionSyncModified
                             toBeAddedCopy.redeemed = Settings.RedeemEpic;
                         }
 
-                        toBeAddedCopies.Add(toBeAddedCopy);
+                        bool foundCopy = false;
+
+                        foreach (var copies in toBeAddedCopies)
+                        {
+                            if (!copies.Exists(c => c.gameId == gameItadId))
+                            {
+                                copies.Add(toBeAddedCopy);
+                                foundCopy = true;
+                                break;
+                            }
+                        }
+
+                        if (!foundCopy)
+                        {
+							toBeAddedCopies.Add(new List<ItadApiAddCopyInput>
+                            {
+                                toBeAddedCopy
+                            });
+						}
+
                         importResult.ImportedGames.Add(game);
 
                         continue;
@@ -228,7 +255,11 @@ namespace IsthereanydealCollectionSyncModified
             if (toBeAddedCopies.HasItems())
             {
                 logger.Info("Plan to add copy");
-                copiesTasks.Add(Api.AddCopies(toBeAddedCopies));
+
+                foreach (var copies in toBeAddedCopies)
+                {
+                    copiesTasks.Add(Api.AddCopies(copies));
+                }
             }
 
             if (toBeUpdatedCopies.HasItems())
